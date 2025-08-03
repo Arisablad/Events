@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
   return (
-    <div className="bg-blue-400">
+    <div>
       <Button color="primary">xd</Button>
     </div>
   )

@@ -5,10 +5,11 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@heroui/react'
+import { ThemeSwitcher } from '../ThemeSwitcher'
 import { Logo } from './partials'
 
 const Navbar = () => (
-  <HerouiNavbar shouldHideOnScroll className="bg-green-500 shadow-sm">
+  <HerouiNavbar shouldHideOnScroll className="shadow-sm">
     <NavbarBrand>
       <Logo />
     </NavbarBrand>
@@ -20,6 +21,9 @@ const Navbar = () => (
       </NavbarItem>
     </NavbarContent>
     <NavbarContent justify="end">
+      <NavbarItem className="hidden lg:flex">
+        <ThemeSwitcher />
+      </NavbarItem>
       {/* <NavbarItem className="hidden lg:flex">
           <Link href="#">Login</Link>
         </NavbarItem>
