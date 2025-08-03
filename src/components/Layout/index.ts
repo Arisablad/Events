@@ -1,4 +1,4 @@
 export * from './Navbar'
+export * from './Switchers'
 
 export { MainContainer } from './MainContainer'
-export { ThemeSwitcher } from './ThemeSwitcher'

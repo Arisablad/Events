@@ -1,0 +1,13 @@
+{
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "en": "English",
+    "pl": "Polish"
+  },
+  "home": {
+    "hello": "Welcome to the application!"
+  }
+}
