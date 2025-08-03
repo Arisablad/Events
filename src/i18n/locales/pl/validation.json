@@ -1,0 +1,7 @@
+{
+  "required": "Pole jest wymagane",
+  "min_length": "Pole musi mieć co najmniej {{min}} znaków",
+  "max_length": "Pole musi mieć maksymalnie {{max}} znaków",
+  "email": "Pole musi być poprawnym adresem e-mail",
+  "phone_number": "Pole musi być poprawnym numerem telefonu"
+}
