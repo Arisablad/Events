@@ -9,5 +9,9 @@
   },
   "home": {
     "hello": "Witaj w aplikacji!"
+  },
+  "navbar": {
+    "events": "Wydarzenia",
+    "add_event": "Dodaj Wydarzenie"
   }
 }
