@@ -1,0 +1,1 @@
+export { CustomWretchError } from './CustomWretchError'

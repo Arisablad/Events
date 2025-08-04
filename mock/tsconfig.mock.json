@@ -6,8 +6,9 @@
     "moduleResolution": "NodeNext",
     "outDir": "../dist/mock",
     "rootDir": ".",
-    "noEmit": true,
+    "noEmit": false,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": false,
     "esModuleInterop": true
   },
   "include": ["./**/*.ts"]

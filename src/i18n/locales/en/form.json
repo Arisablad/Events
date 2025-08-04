@@ -21,7 +21,8 @@
     "location": "Enter location"
   },
   "buttons": {
-    "create_event": "Create Event"
+    "create_event": "Create Event",
+    "clear": "Clear"
   },
   "dropzone": {
     "active": "Drop files here or click to upload",

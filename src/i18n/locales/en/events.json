@@ -1,0 +1,6 @@
+{
+  "messages": {
+    "event_created": "Event created successfully",
+    "event_creation_failed": "Event creation failed"
+  }
+}

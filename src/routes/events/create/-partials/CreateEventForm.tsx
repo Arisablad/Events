@@ -1,6 +1,12 @@
 import { Dropzone } from '@/components/Form'
-import { EventTypeEnum, saveEventValidation } from '@/features/events'
 import {
+  EventTypeEnum,
+  saveEventValidation,
+  storeEvent,
+} from '@/features/events'
+import { toFormData } from '@/lib/helpers'
+import {
+  addToast,
   Button,
   Card,
   DatePicker,
@@ -17,12 +23,15 @@ import {
   type DateValue,
 } from '@internationalized/date'
 import { I18nProvider } from '@react-aria/i18n'
+import { IconBrushOff } from '@tabler/icons-react'
+import { useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 const CreateEventForm = () => {
-  const { t, i18n } = useTranslation(['form', 'validation', 'common'])
+  const { t, i18n } = useTranslation(['form', 'validation', 'common', 'events'])
   const { schema, defaultValues } = saveEventValidation
+  const [isPending, startTransition] = useTransition()
 
   let now = today(getLocalTimeZone())
 
@@ -30,6 +39,7 @@ const CreateEventForm = () => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
     defaultValues,
     resolver: yupResolver(schema(t)),
@@ -40,8 +50,33 @@ const CreateEventForm = () => {
   const isDateUnavailable = (date: DateValue) =>
     date < now || date > today(getLocalTimeZone()).add({ years: 1 })
 
+  const handleClear = () => {
+    reset(defaultValues)
+  }
+
   const onSubmit = (data: typeof defaultValues) => {
-    console.log('Form submitted:', data) // TODO handle form submission
+    const formData = toFormData(data)
+
+    startTransition(async () => {
+      try {
+        await storeEvent(formData)
+
+        addToast({
+          title: t('events:messages.event_created'),
+          variant: 'solid',
+          color: 'success',
+        })
+      } catch (error) {
+        addToast({
+          title: t('events:messages.event_creation_failed'),
+          variant: 'solid',
+          color: 'danger',
+        })
+
+        // NORMALLY WITH PROPER BACKEND I WOULD CHECK THE INSTANCE OF THE ERROR
+        // AND SHOW PROPER MESSAGE, BUT FOR NOW I JUST SHOW GENERIC ERROR
+      }
+    })
   }
 
   return (
@@ -195,14 +230,31 @@ const CreateEventForm = () => {
             />
           )}
         />
-        <Button
-          type="submit"
-          color="default"
-          className="w-full"
-          isLoading={false}
-        >
-          {t('form:buttons.create_event')}
-        </Button>
+        <div className="flex gap-2 items-center">
+          <Button
+            type="submit"
+            color="primary"
+            className="w-full"
+            isLoading={isPending}
+          >
+            {t('form:buttons.create_event')}
+          </Button>
+          <Button
+            color="danger"
+            className="w-full"
+            isLoading={isPending}
+            onPress={handleClear}
+            startContent={
+              <IconBrushOff
+                size={16}
+                strokeWidth={2}
+                className="text-gray-100"
+              />
+            }
+          >
+            {t('form:buttons.clear')}
+          </Button>
+        </div>
       </form>
     </Card>
   )

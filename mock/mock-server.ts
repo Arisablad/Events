@@ -49,11 +49,11 @@ let events = [
 
 // Routes
 
-app.get('/events', (_, res) => {
+app.get('/api/events', (_, res) => {
   res.json(events)
 })
 
-app.get('/event/:id', (req, res) => {
+app.get('/api/event/:id', (req, res) => {
   const event = events.find((e) => e.id === req.params.id)
   if (event) {
     res.json(event)
@@ -62,7 +62,7 @@ app.get('/event/:id', (req, res) => {
   }
 })
 
-app.post('/add', upload.array('images'), (req, res) => {
+app.post('/api/events/create', upload.array('images'), (req, res) => {
   const { body, files } = req
 
   const newEvent = {

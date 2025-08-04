@@ -1,0 +1,6 @@
+{
+  "messages": {
+    "event_created": "Wydarzenie zostało pomyślnie utworzone",
+    "event_creation_failed": "Tworzenie wydarzenia nie powiodło się"
+  }
+}
