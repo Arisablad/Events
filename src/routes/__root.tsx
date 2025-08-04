@@ -10,7 +10,7 @@ export const Route = createRootRoute({
         <Navbar />
         <MainContainer
           classNames={{
-            container: 'bg-yellow-50 dark:bg-gray-900 flex-1',
+            container: 'flex-1 py-6 sm:py-8 lg:py-10',
           }}
         >
           <Outlet />

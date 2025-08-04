@@ -1,0 +1,9 @@
+{
+  "required": "Field is required",
+  "min_length": "Field must be at least {{length}} characters",
+  "max_length": "Field must be at most {{length}} characters",
+  "email": "Field must be a valid email address",
+  "phone_number": "Field must be a valid phone number",
+  "invalid_file_type": "Invalid file type. Allowed types are: {{types}}",
+  "file_too_large": "File size exceeds the maximum limit of {{size}} MB"
+}

@@ -1,0 +1,30 @@
+{
+  "labels": {
+    "title": "Title",
+    "event_date": "Date",
+    "event_description": "Description",
+    "event_image": "Image",
+    "event_type": "Event Type",
+    "phone_number": "Phone Number",
+    "email": "Email",
+    "location": "Location",
+    "image": "Image Upload"
+  },
+  "placeholders": {
+    "title": "Enter title",
+    "event_date": "Select event date",
+    "event_description": "Enter event description",
+    "event_image": "Upload event image",
+    "event_type": "Select event type",
+    "phone_number": "Enter phone number",
+    "email": "Enter email address",
+    "location": "Enter location"
+  },
+  "buttons": {
+    "create_event": "Create Event"
+  },
+  "dropzone": {
+    "active": "Drop files here or click to upload",
+    "inactive": "Drag and drop files here or click to select"
+  }
+}

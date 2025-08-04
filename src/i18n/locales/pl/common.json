@@ -13,5 +13,10 @@
   "navbar": {
     "events": "Wydarzenia",
     "add_event": "Dodaj Wydarzenie"
+  },
+  "event_types": {
+    "sport": "Sport",
+    "culture": "Kultura",
+    "health": "Zdrowie"
   }
 }

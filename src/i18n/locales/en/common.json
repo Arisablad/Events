@@ -13,5 +13,10 @@
   "navbar": {
     "events": "Events",
     "add_event": "Add Event"
+  },
+  "event_types": {
+    "sport": "Sport",
+    "culture": "Culture",
+    "health": "Health"
   }
 }

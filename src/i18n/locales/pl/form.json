@@ -1,0 +1,30 @@
+{
+  "labels": {
+    "title": "Tytuł",
+    "event_date": "Data",
+    "event_description": "Opis",
+    "event_image": "Obraz wydarzenia",
+    "event_type": "Typ wydarzenia",
+    "phone_number": "Numer telefonu",
+    "email": "Email",
+    "location": "Lokalizacja",
+    "image": "Prześlij obraz"
+  },
+  "placeholders": {
+    "title": "Wprowadź tytuł",
+    "event_date": "Wybierz datę wydarzenia",
+    "event_description": "Wprowadź opis wydarzenia",
+    "event_image": "Prześlij obraz wydarzenia",
+    "event_type": "Wybierz typ wydarzenia",
+    "phone_number": "Wprowadź numer telefonu",
+    "email": "Wprowadź adres e-mail",
+    "location": "Wprowadź lokalizację"
+  },
+  "buttons": {
+    "create_event": "Utwórz wydarzenie"
+  },
+  "dropzone": {
+    "active": "Upuść pliki tutaj lub kliknij, aby przesłać",
+    "inactive": "Przeciągnij i upuść pliki tutaj lub kliknij, aby wybrać"
+  }
+}

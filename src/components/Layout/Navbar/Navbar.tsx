@@ -69,14 +69,14 @@ const Navbar = () => {
             color={'tertiary'}
             activeProps={{
               className:
-                'text-secondary-500 dark:text-secondary-400 font-semibold',
+                'text-secondary-500 dark:text-secondary-700 font-semibold',
             }}
           >
             {t('navbar.add_event')}
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
+      <NavbarContent justify="end" className="pr-12">
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitcher />
         </NavbarItem>
@@ -108,7 +108,7 @@ const Navbar = () => {
             color={'tertiary'}
             activeProps={{
               className:
-                'text-secondary-500 dark:text-secondary-400 font-semibold',
+                'text-secondary-500 dark:text-secondary-700 font-semibold',
             }}
           >
             {t('navbar.add_event')}
