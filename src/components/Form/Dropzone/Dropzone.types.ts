@@ -1,6 +1,6 @@
 import type { Nullable } from '@/types/global'
 
-type DropzoneFieldProps = {
+type DropzoneProps = {
   value: Nullable<File[]>
   onChange: (files: File[]) => void
   error?: string
@@ -12,4 +12,4 @@ type DropzoneFieldProps = {
   showPreview?: boolean
 }
 
-export type { DropzoneFieldProps }
+export type { DropzoneProps }

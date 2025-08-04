@@ -4,20 +4,9 @@ import clsx from 'clsx'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useTranslation } from 'react-i18next'
+import type { DropzoneProps } from './Dropzone.types'
 
-type DropzoneFieldProps = {
-  value: File[] | null
-  onChange: (files: File[]) => void
-  error?: string
-  label?: string
-  isRequired?: boolean
-  accept?: Record<string, string[]>
-  multiple?: boolean
-  maxSizeMB?: number
-  showPreview?: boolean
-}
-
-export const DropzoneField = ({
+const Dropzone = ({
   value,
   onChange,
   error,
@@ -27,7 +16,7 @@ export const DropzoneField = ({
   multiple = false,
   maxSizeMB = 5,
   showPreview = true,
-}: DropzoneFieldProps) => {
+}: DropzoneProps) => {
   const [previews, setPreviews] = useState<string[]>([])
   const { t } = useTranslation('form')
 
@@ -134,3 +123,5 @@ export const DropzoneField = ({
     </div>
   )
 }
+
+export { Dropzone }

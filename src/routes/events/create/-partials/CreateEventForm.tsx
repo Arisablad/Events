@@ -1,4 +1,4 @@
-import { DropzoneField } from '@/components/Form/Dropzone'
+import { Dropzone } from '@/components/Form'
 import { EventTypeEnum, saveEventValidation } from '@/features/events'
 import {
   Button,
@@ -187,7 +187,7 @@ const CreateEventForm = () => {
           name="images"
           control={control}
           render={({ field }) => (
-            <DropzoneField
+            <Dropzone
               value={field.value ?? []}
               onChange={field.onChange}
               error={errors?.images?.message}
