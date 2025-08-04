@@ -7,7 +7,8 @@
     "event_type": "Typ wydarzenia",
     "phone_number": "Numer telefonu",
     "email": "Email",
-    "location": "Lokalizacja"
+    "location": "Lokalizacja",
+    "image": "Prześlij obraz"
   },
   "placeholders": {
     "title": "Wprowadź tytuł",
@@ -18,5 +19,12 @@
     "phone_number": "Wprowadź numer telefonu",
     "email": "Wprowadź adres e-mail",
     "location": "Wprowadź lokalizację"
+  },
+  "buttons": {
+    "create_event": "Utwórz wydarzenie"
+  },
+  "dropzone": {
+    "active": "Upuść pliki tutaj lub kliknij, aby przesłać",
+    "inactive": "Przeciągnij i upuść pliki tutaj lub kliknij, aby wybrać"
   }
 }

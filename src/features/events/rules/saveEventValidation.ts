@@ -17,7 +17,20 @@ const saveEventValidation: ValidationInterface<SaveEventRequestInterface> = {
         .min(10, t('validation:min_length', { length: 10 }))
         .max(500, t('validation:max_length', { length: 500 }))
         .required(t('validation:required')),
-      image: yup.mixed<File>().nullable(),
+      images: yup
+        .mixed<File[]>()
+        .test(
+          'fileSize',
+          t('validation:file_too_large', { size: '5' }),
+          (value) => value && value[0]?.size <= 5 * 1024 * 1024, // 5MB limit
+        )
+        .test(
+          'fileType',
+          t('validation:invalid_file_type', { types: 'jpeg, png' }),
+          (value) =>
+            value && ['image/jpeg', 'image/png'].includes(value[0]?.type),
+        )
+        .nullable(),
       event_type: yup
         .string()
         .oneOf(Object.values(EventTypeEnum))
@@ -42,7 +55,7 @@ const saveEventValidation: ValidationInterface<SaveEventRequestInterface> = {
     title: '',
     date: '',
     description: '',
-    image: null,
+    images: [],
     event_type: EventTypeEnum.CULTURE,
     phone_number: '',
     email: '',

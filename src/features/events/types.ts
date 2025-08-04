@@ -5,7 +5,7 @@ interface SaveEventRequestInterface {
   title: string
   date: string
   description: string
-  image?: Nullable<File>
+  images?: Nullable<File[]>
   event_type: EventTypeEnum
   phone_number: string
   email: string
