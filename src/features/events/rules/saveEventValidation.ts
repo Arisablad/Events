@@ -32,7 +32,10 @@ const saveEventValidation: ValidationInterface<SaveEventRequestInterface> = {
         .string()
         .email(t('validation:email'))
         .required(t('validation:required')),
-      location: yup.string().required(t('validation:required')),
+      location: yup
+        .string()
+        .min(6, t('validation:min_length', { length: 6 }))
+        .required(t('validation:required')),
     }),
 
   defaultValues: {

@@ -1,12 +1,21 @@
 import { EventTypeEnum, saveEventValidation } from '@/features/events'
-import { Input, Select, SelectItem, Textarea } from '@heroui/react'
+import { DatePicker, Input, Select, SelectItem, Textarea } from '@heroui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import {
+  getLocalTimeZone,
+  parseAbsoluteToLocal,
+  today,
+  type DateValue,
+} from '@internationalized/date'
+import { I18nProvider } from '@react-aria/i18n'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 const CreateEventForm = () => {
-  const { t } = useTranslation(['form', 'validation', 'common'])
+  const { t, i18n } = useTranslation(['form', 'validation', 'common'])
   const { schema, defaultValues } = saveEventValidation
+
+  let now = today(getLocalTimeZone())
 
   const {
     handleSubmit,
@@ -18,6 +27,9 @@ const CreateEventForm = () => {
     criteriaMode: 'all',
     mode: 'onChange',
   })
+
+  const isDateUnavailable = (date: DateValue) =>
+    date < now || date > today(getLocalTimeZone()).add({ years: 1 })
 
   const onSubmit = (data: typeof defaultValues) => {
     console.log('Form submitted:', data) // TODO handle form submission
@@ -39,6 +51,7 @@ const CreateEventForm = () => {
             isInvalid={!!errors.title}
             errorMessage={errors?.title?.message}
             onValueChange={field.onChange}
+            isRequired
           />
         )}
       />
@@ -53,6 +66,8 @@ const CreateEventForm = () => {
             isInvalid={!!errors.description}
             errorMessage={errors?.description?.message}
             onValueChange={field.onChange}
+            isRequired
+            rows={4}
           />
         )}
       />
@@ -65,6 +80,7 @@ const CreateEventForm = () => {
             placeholder={t('form:placeholders.event_type')}
             label={t('form:labels.event_type')}
             isInvalid={!!errors.event_type}
+            isRequired
             errorMessage={errors?.event_type?.message}
             onSelectionChange={field.onChange}
             items={Object.values(EventTypeEnum).map((type) => ({
@@ -79,6 +95,49 @@ const CreateEventForm = () => {
           </Select>
         )}
       />
+      <I18nProvider locale={i18n.language}>
+        <Controller
+          name={'date'}
+          control={control}
+          render={({ field }) => (
+            <DatePicker
+              hideTimeZone
+              granularity={'second'}
+              showMonthAndYearPickers
+              label={'Event Date'}
+              variant={'bordered'}
+              isInvalid={!!errors.date}
+              isRequired
+              errorMessage={errors?.date?.message}
+              isDateUnavailable={isDateUnavailable}
+              minValue={today(getLocalTimeZone())}
+              value={field.value ? parseAbsoluteToLocal(field.value) : null}
+              onChange={(date) =>
+                field.onChange(date ? date.toDate().toISOString() : null)
+              }
+            />
+          )}
+        />
+      </I18nProvider>
+
+      <div className={'flex flex-col sm:flex-row gap-2'}>
+        <Controller
+          name={'location'}
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder={t('form:placeholders.location')}
+              label={t('form:labels.location')}
+              isInvalid={!!errors.location}
+              isRequired
+              errorMessage={errors?.location?.message}
+              onValueChange={field.onChange}
+            />
+          )}
+        />
+      </div>
+
       <div className={'flex gap-2 flex-col sm:flex-row'}>
         <Controller
           name={'email'}
@@ -89,6 +148,7 @@ const CreateEventForm = () => {
               placeholder={t('form:placeholders.email')}
               label={t('form:labels.email')}
               isInvalid={!!errors.email}
+              isRequired
               errorMessage={errors?.email?.message}
               onValueChange={field.onChange}
             />
@@ -103,6 +163,7 @@ const CreateEventForm = () => {
               placeholder={t('form:placeholders.phone_number')}
               label={t('form:labels.phone_number')}
               isInvalid={!!errors.phone_number}
+              isRequired
               errorMessage={errors?.phone_number?.message}
               onValueChange={field.onChange}
             />
