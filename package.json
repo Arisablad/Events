@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "mock": "node mock/mock-server.js",
-    "build": "vite build && npm run copy:server",
+    "build": "npm ci --include=dev && vite build && npm run copy:server",
     "copy:server": "node -e \"const fs = require('fs'); const path = require('path'); const distDir = path.join(__dirname, 'dist', 'mock'); if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true }); fs.copyFileSync(path.join(__dirname, 'mock', 'mock-server.js'), path.join(distDir, 'mock-server.js'));\"",
     "start": "node dist/mock/mock-server.js",
     "serve": "vite preview",
