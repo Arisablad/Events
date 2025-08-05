@@ -21,6 +21,7 @@
     "@hookform/resolvers": "^5.2.1",
     "@internationalized/date": "^3.8.2",
     "@react-aria/i18n": "^3.12.11",
+    "@reduxjs/toolkit": "^2.8.2",
     "@tabler/icons-react": "^3.34.1",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-router": "^1.130.2",
@@ -41,7 +42,9 @@
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.62.0",
     "react-i18next": "^15.6.1",
+    "react-redux": "^9.2.0",
     "tailwindcss": "^4.0.6",
+    "ts-pattern": "^4.0.1",
     "uuid": "^11.1.0",
     "wretch": "^2.11.0",
     "yup": "^1.7.0"

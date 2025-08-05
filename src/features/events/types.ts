@@ -18,4 +18,4 @@ interface SaveEventRequestInterface
   images?: Nullable<File[]>
 }
 
-export type { SaveEventRequestInterface }
+export type { EventInterface, SaveEventRequestInterface }

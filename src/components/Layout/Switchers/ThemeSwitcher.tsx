@@ -20,8 +20,6 @@ const ThemeSwitcher = () => {
 
   const isMac = navigator.platform?.toUpperCase().includes('MAC')
 
-  console.log('navigator.platform:', navigator)
-
   const handleKeyDown = (event: KeyboardEvent) => {
     const modifierKey = isMac ? event.metaKey : event.ctrlKey
 

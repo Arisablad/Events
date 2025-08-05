@@ -2,7 +2,7 @@ import { Dropzone } from '@/components/Form'
 import {
   EventTypeEnum,
   saveEventValidation,
-  storeEvent,
+  useStoreEventMutation,
 } from '@/features/events'
 import { toFormData } from '@/lib/helpers'
 import {
@@ -24,14 +24,15 @@ import {
 } from '@internationalized/date'
 import { I18nProvider } from '@react-aria/i18n'
 import { IconBrushOff } from '@tabler/icons-react'
-import { useTransition } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 const CreateEventForm = () => {
   const { t, i18n } = useTranslation(['form', 'validation', 'common', 'events'])
   const { schema, defaultValues } = saveEventValidation
-  const [isPending, startTransition] = useTransition()
+  const [storeEvent, { isLoading }] = useStoreEventMutation()
+  const navigate = useNavigate()
 
   let now = today(getLocalTimeZone())
 
@@ -54,29 +55,32 @@ const CreateEventForm = () => {
     reset(defaultValues)
   }
 
-  const onSubmit = (data: typeof defaultValues) => {
+  const onSubmit = async (data: typeof defaultValues) => {
     const formData = toFormData(data)
 
-    startTransition(async () => {
-      try {
-        await storeEvent(formData)
+    try {
+      await storeEvent(formData).unwrap()
 
-        addToast({
-          title: t('events:messages.event_created'),
-          variant: 'solid',
-          color: 'success',
-        })
-      } catch (error) {
-        addToast({
-          title: t('events:messages.event_creation_failed'),
-          variant: 'solid',
-          color: 'danger',
-        })
+      addToast({
+        title: t('events:messages.event_created'),
+        variant: 'solid',
+        color: 'success',
+      })
 
-        // NORMALLY WITH PROPER BACKEND I WOULD CHECK THE INSTANCE OF THE ERROR
-        // AND SHOW PROPER MESSAGE, BUT FOR NOW I JUST SHOW GENERIC ERROR
-      }
-    })
+      handleClear()
+      navigate({
+        to: '/',
+      })
+    } catch (error) {
+      addToast({
+        title: t('events:messages.event_creation_failed'),
+        variant: 'solid',
+        color: 'danger',
+      })
+
+      // NORMALLY WITH PROPER BACKEND I WOULD CHECK THE INSTANCE OF THE ERROR
+      // AND SHOW PROPER MESSAGE, BUT FOR NOW I JUST SHOW GENERIC ERROR
+    }
   }
 
   return (
@@ -235,14 +239,14 @@ const CreateEventForm = () => {
             type="submit"
             color="primary"
             className="w-full"
-            isLoading={isPending}
+            isLoading={isLoading}
           >
             {t('form:buttons.create_event')}
           </Button>
           <Button
             color="danger"
             className="w-full"
-            isLoading={isPending}
+            isLoading={isLoading}
             onPress={handleClear}
             startContent={
               <IconBrushOff

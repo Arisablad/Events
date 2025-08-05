@@ -45,6 +45,44 @@ let events = [
     email: 'sample@example.com',
     location: 'Sample City',
   },
+  {
+    id: uuidv4(),
+    title:
+      'Long event title that exceeds the usual length for testing purposes.',
+    date: '2025-11-01T18:00:00.000Z',
+    description: 'This is another sample event description.',
+    images: ['/uploads/another-image.jpg'],
+    event_type: 'SPORTS',
+    phone_number: '+0987654321',
+    email: 'another@example.com',
+    location: 'Another City',
+  },
+  {
+    id: uuidv4(),
+    title: 'Third Event',
+    date: '2025-12-01T18:00:00.000Z',
+    description: `
+    Long Description for the third event. This event is about technology and innovation. It will feature various speakers and workshops related to the latest trends in tech.
+    Join us for an exciting day filled with knowledge sharing and networking opportunities. Don't miss out on
+    the chance to learn from industry experts and connect with like-minded individuals.
+    `,
+    images: [],
+    event_type: 'MUSIC',
+    phone_number: '+1122334455',
+    email: 'third@example.com',
+    location: 'Third City',
+  },
+  {
+    id: uuidv4(),
+    title: 'Fourth Event',
+    date: '2025-12-15T18:00:00.000Z',
+    description: 'This is a fourth sample event description.',
+    images: [],
+    event_type: 'TECHNOLOGY',
+    phone_number: '+5566778899',
+    email: 'fourth@example.com',
+    location: 'Fourth City',
+  },
 ]
 
 // Routes
@@ -79,5 +117,5 @@ app.post('/api/events/create', upload.array('images'), (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`✅ Mock API running at http://localhost:${PORT}`)
+  console.log(`Mock API running at http://localhost:${PORT}`)
 })
