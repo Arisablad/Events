@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": false,
     "esModuleInterop": true,
-    "typeRoots": ["../node_modules/@types"]
+    "types": ["node"]
   },
   "include": ["./**/*.ts"]
 }
