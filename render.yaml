@@ -4,8 +4,8 @@ services:
     name: events-api
     env: node
     plan: free
-    buildCommand: yarn install && npm run build:server
-    startCommand: yarn start
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
