@@ -8,6 +8,7 @@
       "title": "Events",
       "subtitle": "Find interesting events in your neighborhood"
     },
+    "no_events_found": "No events found",
     "filters": {
       "search_placeholder": "Search events...",
       "grid_view": "Grid view",

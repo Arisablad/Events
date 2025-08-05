@@ -8,6 +8,7 @@
       "title": "Wydarzenia",
       "subtitle": "Znajdź interesujące wydarzenia w swojej okolicy"
     },
+    "no_events_found": "Nie znaleziono wydarzeń",
     "filters": {
       "search_placeholder": "Szukaj wydarzeń...",
       "grid_view": "Widok siatki",

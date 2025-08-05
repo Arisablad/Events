@@ -1,28 +1,44 @@
-import { useGetEventsQuery } from '@/features/events'
+import {
+  EventTypeEnum,
+  useFilteredEvents,
+  useGetEventsQuery,
+} from '@/features/events'
+import type { Nullable } from '@/types/global'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useMemo, useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
-import { EventFlexList, EventGridList, EventHeader, Filters } from './-partials'
+import {
+  EventFlexList,
+  EventGridList,
+  EventHeader,
+  EventListSkeleton,
+  Filters,
+} from './-partials'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
 function HomePage() {
-  const { t } = useTranslation('common')
-  const { data: events, isLoading } = useGetEventsQuery()
-  const [viewType, setViewType] = useState<'flex' | 'grid'>('flex')
+  const { t } = useTranslation(['common', 'events'])
+  const { data: events = [], isLoading } = useGetEventsQuery()
+  const [viewType, setViewType] = useState<'flex' | 'grid'>('grid')
+  const [selectedType, setSelectedType] =
+    useState<Nullable<EventTypeEnum>>(null)
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
+  const { filteredEvents } = useFilteredEvents({
+    events: events,
+    searchQuery,
+    selectedType,
+  })
 
   const handleViewChange = (type: 'flex' | 'grid') => {
     setViewType(type)
   }
 
   const onEventClick = (eventId: string) => {
-    console.log(`Event clicked: ${eventId}`)
-
     navigate({
       to: '/events/$id',
       params: { id: eventId },
@@ -33,20 +49,14 @@ function HomePage() {
     setSearchQuery(query)
   }
 
-  const filteredEvents = useMemo(() => {
-    if (!searchQuery) {
-      return events
-    }
-
-    return events?.filter(
-      (event) =>
-        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchQuery.toLowerCase()),
+  const onTypeChange = (key: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedType(
+      key.target.value === 'all' ? null : (key.target.value as EventTypeEnum),
     )
-  }, [events, searchQuery])
+  }
 
   if (isLoading) {
-    return <div>{t('loading')}</div>
+    return <EventListSkeleton viewType={viewType} />
   }
 
   const sharedProps = {
@@ -61,14 +71,21 @@ function HomePage() {
         onViewChange={handleViewChange}
         viewType={viewType}
         onSearch={onSearch}
+        selectedType={selectedType}
+        onTypeChange={onTypeChange}
       />
 
-      {match(viewType)
-        .with('flex', () => <EventFlexList {...sharedProps} />)
-        .with('grid', () => <EventGridList {...sharedProps} />)
-        .otherwise(() => (
-          <EventFlexList {...sharedProps} />
-        ))}
+      {filteredEvents.length > 0 &&
+        match(viewType)
+          .with('flex', () => <EventFlexList {...sharedProps} />)
+          .with('grid', () => <EventGridList {...sharedProps} />)
+          .otherwise(() => <EventFlexList {...sharedProps} />)}
+
+      {filteredEvents.length === 0 && (
+        <div className="text-center text-gray-500">
+          {t('events.list.no_events')}
+        </div>
+      )}
     </div>
   )
 }

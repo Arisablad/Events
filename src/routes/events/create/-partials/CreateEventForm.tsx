@@ -83,6 +83,8 @@ const CreateEventForm = () => {
     }
   }
 
+  console.log('Form Errors:', errors)
+
   return (
     <Card shadow="sm" className="max-w-xl mx-auto">
       <form
@@ -139,10 +141,9 @@ const CreateEventForm = () => {
               selectedKeys={field.value ? [field.value] : []}
             >
               {(item) => (
-                <SelectItem
-                  key={item.value}
-                  textValue={item.label.toString()}
-                />
+                <SelectItem key={item.value} textValue={item.label.toString()}>
+                  {item.label}
+                </SelectItem>
               )}
             </Select>
           )}

@@ -13,3 +13,8 @@ Zadanie Rekrutacyjne Alan Systems
 - Kwestia tłumaczeń. Aktualnie potrzebne tłumaczenia w każdym komponencie. Jednak w przypadku produkcyjnego kodu. Ładowałbym tylko wymagane dla danego route (Widziałem , że tanstack router udostępnia taką opcję).
   i przekazywał do komponentu dziecka z pomocą propsów (EventList - > EventItem)
 - Z racji ze projekt jest oparty na React 19 w wielu miejscach nie uzywam memo/useCallback
+- Przy projekcie, do utrzymywania zastosowałbym ThemeConfig aby nie pisać na sztywno class tailwindowych typu text-gray-500 dark:text-gray-500
+  gdyż potem jedna zmiana wymaga wiele więcej czasu.
+- Filtry powinny być po backendzie bazując na searchParamsach /paginacja/search/sort/filter by type etc. Jednak miałem stworzyć tylko mocki.
+- Z racji braku requestów do API, nie stosowałem debounce na inputach(search).
+- Na realnym kodzie z pewnością ustawiłbym jakiś cache w tanstack query.
