@@ -25,7 +25,6 @@ app.use(cors())
 app.use(express.json())
 
 app.use(express.static(path.join(process.cwd(), 'dist')))
-
 app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')))
 
 const storage = multer.diskStorage({
@@ -55,15 +54,14 @@ const writeEventsToFile = async (events) => {
   }
 }
 
-// API Routes
 app.get('/api/events', async (_req, res) => {
   console.log('GET /api/events')
   const events = await readEventsFromFile()
   res.json(events)
 })
 
-app.get('/api/event/:id', async (req, res) => {
-  console.log('GET /api/event/:id', req.params.id)
+app.get('/api/events/:id', async (req, res) => {
+  console.log('GET /api/events/:id', req.params.id)
   const events = await readEventsFromFile()
   const event = events.find((e) => e.id === req.params.id)
 
@@ -74,8 +72,8 @@ app.get('/api/event/:id', async (req, res) => {
   }
 })
 
-app.post('/api/events/create', upload.array('images'), async (req, res) => {
-  console.log('POST /api/events/create')
+app.post('/api/events', upload.array('images'), async (req, res) => {
+  console.log('POST /api/events')
   const { body, files } = req
   const events = await readEventsFromFile()
 
