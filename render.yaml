@@ -4,8 +4,8 @@ services:
     name: events-api
     env: node
     plan: free
-    buildCommand: npm install && npm run build:server
-    startCommand: npm start
+    buildCommand: yarn install && npm run build:server
+    startCommand: yarn start
     envVars:
       - key: NODE_ENV
         value: production
@@ -18,7 +18,7 @@ services:
     name: events-frontend
     env: static
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: yarn install && yarn run build
     staticPublishPath: ./dist
     routes:
       - type: rewrite
