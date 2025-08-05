@@ -2,7 +2,6 @@ type LinkHelperProps = {
   href: string
   params?: Record<string, string>
   queryParams?: Record<string, string>
-  isExternal?: boolean
   isApiRoute?: boolean
 }
 
@@ -11,7 +10,6 @@ const linkHelper = ({
   params,
   queryParams,
   isApiRoute = false,
-  isExternal = false,
 }: LinkHelperProps): string => {
   let path = href
 
