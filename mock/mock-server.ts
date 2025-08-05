@@ -13,7 +13,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const PORT = process.env.PORT || 4000
+const PORT =
+  process.env.PORT || (process.env.NODE_ENV === 'production' ? undefined : 4000)
 
 // File path for storing events
 const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
