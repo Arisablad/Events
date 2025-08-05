@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-const readEventsFromFile = async () => {
+const readEventsFromFile = async (): Promise<any[]> => {
   try {
     const data = await fs.readFile(eventsFilePath, 'utf-8')
     return JSON.parse(data)
@@ -46,7 +46,7 @@ const readEventsFromFile = async () => {
   }
 }
 
-const writeEventsToFile = async (events: any[]) => {
+const writeEventsToFile = async (events: any[]): Promise<void> => {
   try {
     await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2))
   } catch (error) {
