@@ -18,7 +18,14 @@ const PORT = process.env.PORT || 4000
 // File path for storing events
 const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
 
-app.use(cors())
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? ['https://events-ssa2.onrender.com']
+        : ['http://localhost:4000'],
+  }),
+)
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')))
 
