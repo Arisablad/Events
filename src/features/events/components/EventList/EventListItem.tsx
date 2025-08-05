@@ -12,6 +12,7 @@ type EventListItemProps = Readonly<{
   onEventClick?: (eventId: string) => void
   classNames?: {
     container?: string
+    image?: string
   }
 }>
 
@@ -50,9 +51,10 @@ const EventListItem = ({
             <img
               src={findImageThumbnail(event.images)}
               alt={event.title}
-              className={
-                'w-full h-full object-cover hover:opacity-80 hover:brightness-90 transition-transform duration-300'
-              }
+              className={cn(
+                'w-full h-full object-cover hover:opacity-80 hover:brightness-90 transition-transform duration-300',
+                classNames?.image,
+              )}
             />
           </div>
         </CardHeader>

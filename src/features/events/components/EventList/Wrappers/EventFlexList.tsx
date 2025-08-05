@@ -11,6 +11,7 @@ const EventFlexList = ({ events, onEventClick }: EventListProps) => {
           onEventClick={onEventClick}
           classNames={{
             container: 'cursor-pointer',
+            image: 'object-contain rounded-2xl',
           }}
         />
       ))}

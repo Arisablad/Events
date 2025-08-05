@@ -1,0 +1,112 @@
+[
+  {
+    "id": "3df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Alan Systems Hackathon 2025",
+    "date": "2025-09-15T09:00:00.000Z",
+    "description": "A full-day internal hackathon focused on AI-powered business process automation.",
+    "images": ["/uploads/1.png"],
+    "event_type": "Culture",
+    "phone_number": "+48332223344",
+    "email": "events@alan-systems.com",
+    "location": "Rybnik HQ"
+  },
+  {
+    "id": "2df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Healthy Coding: Ergonomics at the Desk",
+    "date": "2025-09-22T11:00:00.000Z",
+    "description": "Workshop on maintaining physical well-being during long hours of coding. Led by a physiotherapist.",
+    "images": ["/uploads/2.webp"],
+    "event_type": "Health",
+    "phone_number": "+48332223344",
+    "email": "health@alan-systems.com",
+    "location": "Rybnik HQ – Conference Room B"
+  },
+  {
+    "id": "4df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Alan Run: Tech Sprint Challenge",
+    "date": "2025-09-28T08:30:00.000Z",
+    "description": "Join the Alan Systems team in a friendly 5K run around Rybnik Park. Open to employees and their families.",
+    "images": ["/uploads/3.jpg"],
+    "event_type": "Sport",
+    "phone_number": "+48332223344",
+    "email": "sports@alan-systems.com",
+    "location": "Rybnik Park"
+  },
+  {
+    "id": "5df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Autumn IT Conference Prep Meetup",
+    "date": "2025-09-10T14:00:00.000Z",
+    "description": "Pre-conference strategy session for the team representing Alan Systems at upcoming European IT events.",
+    "images": ["/uploads/4.jpg"],
+    "event_type": "Culture",
+    "phone_number": "+48332223344",
+    "email": "events@alan-systems.com",
+    "location": "Rybnik HQ"
+  },
+  {
+    "id": "6df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Alan Systems Yoga Day",
+    "date": "2025-09-19T07:00:00.000Z",
+    "description": "Start your morning with guided yoga sessions designed for IT professionals. Mats provided.",
+    "images": ["/uploads/5.jpg"],
+    "event_type": "Health",
+    "phone_number": "+48332223344",
+    "email": "wellness@alan-systems.com",
+    "location": "Office Rooftop"
+  },
+  {
+    "id": "7df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Board Games and Pizza Night",
+    "date": "2025-09-27T17:00:00.000Z",
+    "description": "Unwind after work with board games and hot pizza. Bring your favorite game!",
+    "images": [],
+    "event_type": "Culture",
+    "phone_number": "+48332223344",
+    "email": "culture@alan-systems.com",
+    "location": "Rybnik HQ – Lounge Area"
+  },
+  {
+    "id": "08df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Mental Health Awareness Week",
+    "date": "2025-10-07T10:00:00.000Z",
+    "description": "A series of talks and sessions highlighting mental wellness in tech environments.",
+    "images": [],
+    "event_type": "Health",
+    "phone_number": "+48332223344",
+    "email": "health@alan-systems.com",
+    "location": "Hybrid (In-person + Online)"
+  },
+  {
+    "id": "21df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Tech Talks: Trends in Cloud Development",
+    "date": "2025-10-03T16:00:00.000Z",
+    "description": "Internal mini-conference on emerging technologies in cloud-based software. Presentations by Alan Systems devs.",
+    "images": [],
+    "event_type": "Culture",
+    "phone_number": "+48332223344",
+    "email": "events@alan-systems.com",
+    "location": "Rybnik HQ – Auditorium"
+  },
+  {
+    "id": "32df0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Ping Pong Tournament",
+    "date": "2025-09-25T15:00:00.000Z",
+    "description": "Compete with your teammates in a friendly ping pong tournament. Trophies for winners!",
+    "images": ["/uploads/3.jpg"],
+    "event_type": "Sport",
+    "phone_number": "+48332223344",
+    "email": "sports@alan-systems.com",
+    "location": "Rybnik HQ – Basement Lounge"
+  },
+  {
+    "id": "xdf0d6d6-3d6d-4d6d-9d6d-3d6d3d6d3d6d",
+    "title": "Coding for a Cause: Charity Sprint",
+    "date": "2025-10-12T10:00:00.000Z",
+    "description": "One-day coding sprint to build a tool for a local NGO. Collaboration and coffee guaranteed.",
+    "images": ["/uploads/5.jpg"],
+    "event_type": "Culture",
+    "phone_number": "+48332223344",
+    "email": "csr@alan-systems.com",
+    "location": "Rybnik HQ"
+  }
+]

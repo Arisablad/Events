@@ -8,15 +8,13 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@heroui/react'
-import { useRouterState } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LangSwitcher, ThemeSwitcher } from '../Switchers'
 import { Logo } from './partials'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const routerState = useRouterState()
   const { t } = useTranslation('common')
 
   const toggleMenu = () => {
@@ -27,9 +25,9 @@ const Navbar = () => {
     setIsMenuOpen(false)
   }
 
-  useEffect(() => {
-    if (isMenuOpen) handleCloseMenu()
-  }, [routerState])
+  // useEffect(() => {
+  //   if (isMenuOpen) handleCloseMenu()
+  // }, [routerState])
 
   return (
     <HerouiNavbar
