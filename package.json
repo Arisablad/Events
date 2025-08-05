@@ -6,7 +6,7 @@
     "dev": "vite --port 3000",
     "build": "npm ci --include=dev && npm run build:server && vite build && npm start",
     "build:server": "tsc --project mock/tsconfig.mock.json",
-    "start": "node mock/mock-server.js",
+    "start": "node dist/mock/mock-server.js",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
