@@ -22,13 +22,20 @@ const saveEventValidation: ValidationInterface<SaveEventRequestInterface> = {
         .test(
           'fileSize',
           t('validation:file_too_large', { size: '5' }),
-          (value) => value && value[0]?.size <= 5 * 1024 * 1024, // 5MB limit
+          (value) => {
+            if (!value || value.length === 0) return true
+
+            return value.every((file) => file.size <= 5 * 1024 * 1024)
+          },
         )
         .test(
           'fileType',
           t('validation:invalid_file_type', { types: 'jpeg, png' }),
-          (value) =>
-            value && ['image/jpeg', 'image/png'].includes(value[0]?.type),
+          (value) => {
+            if (!value || value.length === 0) return true
+
+            return value && ['image/jpeg', 'image/png'].includes(value[0]?.type)
+          },
         )
         .nullable(),
       event_type: yup

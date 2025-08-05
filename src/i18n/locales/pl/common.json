@@ -17,6 +17,7 @@
   "event_types": {
     "sport": "Sport",
     "culture": "Kultura",
-    "health": "Zdrowie"
+    "health": "Zdrowie",
+    "all_types": "Wszystkie Typy"
   }
 }

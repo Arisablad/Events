@@ -1,0 +1,18 @@
+{
+  "messages": {
+    "event_created": "Wydarzenie zostało pomyślnie utworzone",
+    "event_creation_failed": "Tworzenie wydarzenia nie powiodło się"
+  },
+  "list": {
+    "header": {
+      "title": "Wydarzenia",
+      "subtitle": "Znajdź interesujące wydarzenia w swojej okolicy"
+    },
+    "no_events_found": "Nie znaleziono wydarzeń",
+    "filters": {
+      "search_placeholder": "Szukaj wydarzeń...",
+      "grid_view": "Widok siatki",
+      "flex_view": "Widok elastyczny"
+    }
+  }
+}

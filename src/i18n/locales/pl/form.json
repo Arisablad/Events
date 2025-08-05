@@ -21,7 +21,8 @@
     "location": "Wprowadź lokalizację"
   },
   "buttons": {
-    "create_event": "Utwórz wydarzenie"
+    "create_event": "Utwórz wydarzenie",
+    "clear": "Wyczyść"
   },
   "dropzone": {
     "active": "Upuść pliki tutaj lub kliknij, aby przesłać",

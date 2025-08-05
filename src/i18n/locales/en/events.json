@@ -1,0 +1,18 @@
+{
+  "messages": {
+    "event_created": "Event created successfully",
+    "event_creation_failed": "Event creation failed"
+  },
+  "list": {
+    "header": {
+      "title": "Events",
+      "subtitle": "Find interesting events in your neighborhood"
+    },
+    "no_events_found": "No events found",
+    "filters": {
+      "search_placeholder": "Search events...",
+      "grid_view": "Grid view",
+      "flex_view": "Flex view"
+    }
+  }
+}
