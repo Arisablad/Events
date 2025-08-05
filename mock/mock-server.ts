@@ -16,6 +16,8 @@ const app = express()
 const PORT =
   process.env.PORT || (process.env.NODE_ENV === 'production' ? undefined : 4000)
 
+console.log(`Mock API running at `)
+
 // File path for storing events
 const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
 
