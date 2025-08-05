@@ -18,15 +18,9 @@ const PORT = process.env.PORT || 4000
 // File path for storing events
 const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
 
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? ['https://events-ssa2.onrender.com']
-        : ['http://localhost:4000'],
-  }),
-)
+app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(__dirname, '../dist')))
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')))
 
 // Multer setup for file uploads
@@ -98,6 +92,14 @@ app.post(
     res.status(201).json(newEvent)
   },
 )
+
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API endpoint not found' })
+  }
+
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+})
 
 app.listen(PORT, () => {
   console.log(`Mock API running at http://localhost:${PORT}`)
