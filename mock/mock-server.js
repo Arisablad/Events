@@ -1,4 +1,5 @@
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express from 'express'
 import fs from 'fs/promises'
 import multer from 'multer'
@@ -6,75 +7,83 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { v4 as uuidv4 } from 'uuid'
 
+dotenv.config()
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
 const PORT = process.env.PORT || 4000
-const eventsFilePath = path.join(process.cwd(), 'mock', 'events.json')
+
+const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(process.cwd(), 'dist')))
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')))
 
-const apiRouter = express.Router()
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: path.join(process.cwd(), 'public/uploads'),
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`)
-    },
-  }),
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(process.cwd(), 'public/uploads')
+    cb(null, dir)
+  },
+  filename: (_req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`
+    cb(null, uniqueName)
+  },
 })
+const upload = multer({ storage })
 
-const readEvents = async () => {
+const readEventsFromFile = async () => {
   try {
     const data = await fs.readFile(eventsFilePath, 'utf-8')
     return JSON.parse(data)
-  } catch (e) {
+  } catch (error) {
+    console.error('Error reading events file:', error)
     return []
   }
 }
 
-const writeEvents = (data) =>
-  fs.writeFile(eventsFilePath, JSON.stringify(data, null, 2))
+const writeEventsToFile = async (events) => {
+  try {
+    await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2))
+  } catch (error) {
+    console.error('Error writing to events file:', error)
+  }
+}
 
-apiRouter.get('/events', async (req, res) => {
-  const events = await readEvents()
+app.get('/api/events', async (_req, res) => {
+  const events = await readEventsFromFile()
   res.json(events)
 })
 
-apiRouter.get('/events/:id', async (req, res) => {
-  const events = await readEvents()
+app.get('/api/event/:id', async (req, res) => {
+  const events = await readEventsFromFile()
   const event = events.find((e) => e.id === req.params.id)
+
   if (event) {
     res.json(event)
   } else {
-    res.status(404).json({ error: 'Event not found' })
+    res.status(404).send({ error: 'Event not found' })
   }
 })
 
-apiRouter.post('/events', upload.array('images'), async (req, res) => {
-  const events = await readEvents()
+app.post('/api/events/create', upload.array('images'), async (req, res) => {
+  const { body, files } = req
+  const events = await readEventsFromFile()
+
   const newEvent = {
     id: uuidv4(),
-    ...req.body,
-    images: (req.files || []).map((file) => `/uploads/${file.filename}`),
+    ...body,
+    images: files.map((file) => `/uploads/${file.filename}`),
   }
+
   events.push(newEvent)
-  await writeEvents(events)
+  await writeEventsToFile(events)
   res.status(201).json(newEvent)
 })
 
-app.use('/api', apiRouter)
-
-app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')))
-app.use(express.static(path.join(process.cwd(), 'dist')))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'))
-})
-
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`)
-  console.log(`📁 Serving frontend from: ${path.join(process.cwd(), 'dist')}`)
+  console.log(`Mock API running at http://localhost:${PORT}`)
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
 })
