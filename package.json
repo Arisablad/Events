@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "npm ci --include=dev && vite build && npm run copy:server && npm start",
-    "copy:server": "node -e \"const fs = require('fs'); const path = require('path'); const distDir = path.join(__dirname, 'dist', 'mock'); if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true }); fs.copyFileSync(path.join(__dirname, 'mock', 'mock-server.js'), path.join(distDir, 'mock-server.js'));\"",
+    "build": "npm ci --include=dev && vite build && npm run build:server && npm start",
+    "build:server": "tsc --project mock/tsconfig.mock.json",
     "start": "node dist/mock/mock-server.js",
     "serve": "vite preview",
     "test": "vitest run",
