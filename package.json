@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "npm ci --include=dev && npm run build:server && vite build && npm start",
-    "build:server": "mkdir -p dist/mock && cp mock/mock-server.js dist/mock/",
+    "build:server": "tsc mock/mock-server.ts --target ES2022 --module ESNext --outDir dist/mock --moduleResolution node",
     "start": "node dist/mock/mock-server.js",
     "serve": "vite preview",
     "test": "vitest run",
