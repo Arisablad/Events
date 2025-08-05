@@ -1,6 +1,6 @@
 import cors from 'cors'
 import dotenv from 'dotenv'
-import express from 'express'
+import express, { type Request, type Response } from 'express'
 import { promises as fs } from 'fs'
 import multer from 'multer'
 import path from 'path'
@@ -25,7 +25,11 @@ app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')))
 // Multer setup for file uploads
 const storage = multer.diskStorage({
   destination: path.join(__dirname, '../public/uploads'),
-  filename: (_, file, cb) => {
+  filename: (
+    _req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, filename: string) => void,
+  ) => {
     const uniqueName = `${Date.now()}-${file.originalname}`
     cb(null, uniqueName)
   },
@@ -35,11 +39,9 @@ const upload = multer({ storage })
 const readEventsFromFile = async () => {
   try {
     const data = await fs.readFile(eventsFilePath, 'utf-8')
-
     return JSON.parse(data)
   } catch (error) {
     console.error('Error reading events file:', error)
-
     return []
   }
 }
@@ -53,17 +55,14 @@ const writeEventsToFile = async (events: any[]) => {
 }
 
 // Routes
-
-app.get('/api/events', async (_, res) => {
+app.get('/api/events', async (_req: Request, res: Response) => {
   const events = await readEventsFromFile()
-
   res.json(events)
 })
 
-app.get('/api/event/:id', async (req, res) => {
+app.get('/api/event/:id', async (req: Request, res: Response) => {
   const events = await readEventsFromFile()
-
-  const event = events.find((e: any) => e.id === req.params.id)
+  const event = events.find((e: { id: string }) => e.id === req.params.id)
 
   if (event) {
     res.json(event)
@@ -72,24 +71,26 @@ app.get('/api/event/:id', async (req, res) => {
   }
 })
 
-app.post('/api/events/create', upload.array('images'), async (req, res) => {
-  const { body, files } = req
-  const events = await readEventsFromFile()
+app.post(
+  '/api/events/create',
+  upload.array('images'),
+  async (req: Request, res: Response) => {
+    const { body, files } = req
+    const events = await readEventsFromFile()
 
-  const newEvent = {
-    id: uuidv4(),
-    ...body,
-    images: (files as Express.Multer.File[]).map(
-      (file) => `/uploads/${file.filename}`,
-    ),
-  }
+    const newEvent = {
+      id: uuidv4(),
+      ...body,
+      images: (files as Express.Multer.File[]).map(
+        (file) => `/uploads/${file.filename}`,
+      ),
+    }
 
-  events.push(newEvent)
-
-  await writeEventsToFile(events)
-
-  res.status(201).json(newEvent)
-})
+    events.push(newEvent)
+    await writeEventsToFile(events)
+    res.status(201).json(newEvent)
+  },
+)
 
 app.listen(PORT, () => {
   console.log(`Mock API running at http://localhost:${PORT}`)
