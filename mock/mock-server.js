@@ -15,32 +15,27 @@ const __dirname = path.dirname(__filename)
 const app = express()
 const PORT = process.env.PORT || 10000
 
-// Fix the events file path - for Render deployment
 let eventsFilePath
 if (process.env.NODE_ENV === 'production') {
-  // In production, create the events file in a writable directory
   eventsFilePath = path.resolve(process.cwd(), 'events.json')
 } else {
-  // In development, use the mock directory
   eventsFilePath = path.resolve(__dirname, '..', '..', 'mock', 'events.json')
 }
 
-console.log('Events file path:', eventsFilePath)
-console.log('Current working directory:', process.cwd())
-console.log('__dirname:', __dirname)
-
 app.use(cors())
 app.use(express.json())
-// Serve static files from the dist directory
+
 const distPath = path.join(process.cwd(), 'dist')
 console.log('Serving static files from:', distPath)
 app.use(express.static(distPath))
 
-// Serve the React app for any non-API routes
-app.get('*', (req, res) => {
-  // Don't serve index.html for API routes
+app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'API endpoint not found' })
+    return next()
+  }
+
+  if (req.path.includes('.')) {
+    return next()
   }
 
   const indexPath = path.join(distPath, 'index.html')
@@ -80,13 +75,11 @@ const readEventsFromFile = async () => {
   } catch (error) {
     console.log('Events file not found, creating with empty array')
     console.log('Error details:', error.message)
-    // Create the file with empty array if it doesn't exist
     try {
       await writeEventsToFile([])
       return []
     } catch (writeError) {
       console.error('Failed to create events file:', writeError.message)
-      // Return empty array if we can't write to disk
       return []
     }
   }
@@ -94,7 +87,6 @@ const readEventsFromFile = async () => {
 
 const writeEventsToFile = async (events) => {
   try {
-    // Ensure the directory exists
     const dir = path.dirname(eventsFilePath)
     await fs.mkdir(dir, { recursive: true })
     await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2))
@@ -149,17 +141,11 @@ app.post('/api/events/create', upload.array('images'), async (req, res) => {
   }
 })
 
-// Add a simple health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() })
-})
-
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Mock API running at http://localhost:${PORT}`)
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
   console.log('Server is ready to handle requests')
   console.log('Available routes:')
-  console.log('  GET /health')
   console.log('  GET /api/events')
   console.log('  GET /api/event/:id')
   console.log('  POST /api/events/create')
