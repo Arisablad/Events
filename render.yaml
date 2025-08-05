@@ -12,7 +12,7 @@ services:
       - key: PORT
         value: 4000
     autoDeploy: false
-    rootDir: ./mock
+    rootDir: ./dist/mock
 
   # Frontend Static Site
   - type: web
@@ -21,6 +21,7 @@ services:
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
+    rootDir: ./dist
     routes:
       - type: rewrite
         source: /*
