@@ -1,5 +1,4 @@
 import cors from 'cors'
-import dotenv from 'dotenv'
 import express from 'express'
 import fs from 'fs/promises'
 import multer from 'multer'
@@ -7,19 +6,14 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { v4 as uuidv4 } from 'uuid'
 
-dotenv.config()
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
 const PORT = process.env.PORT || 4000
-const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
 
-console.log('Starting server...')
-console.log('Port:', PORT)
-console.log('Environment:', process.env.NODE_ENV)
-console.log('Working directory:', process.cwd())
+console.log('Starting simplified server...')
+console.log('PORT:', PORT)
 
 app.use(cors())
 app.use(express.json())
@@ -28,70 +22,69 @@ app.use(express.static(path.join(process.cwd(), 'dist')))
 app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')))
 
 const storage = multer.diskStorage({
-  destination: path.join(process.cwd(), 'public/uploads'),
-  filename: (_req, file, cb) => {
+  destination: (req, file, cb) => {
+    const dir = path.join(process.cwd(), 'public/uploads')
+    cb(null, dir)
+  },
+  filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${file.originalname}`
     cb(null, uniqueName)
   },
 })
 const upload = multer({ storage })
 
-const readEventsFromFile = async () => {
+const eventsFilePath = path.join(process.cwd(), 'mock', 'events.json')
+
+app.get('/api/events', async (req, res) => {
   try {
     const data = await fs.readFile(eventsFilePath, 'utf-8')
-    return JSON.parse(data)
+    res.json(JSON.parse(data))
   } catch (error) {
-    console.error('Error reading events file:', error)
-    return []
+    console.error('Error reading events:', error)
+    res.json([])
   }
-}
-
-const writeEventsToFile = async (events) => {
-  try {
-    await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2))
-  } catch (error) {
-    console.error('Error writing to events file:', error)
-  }
-}
-
-app.get('/api/events', async (_req, res) => {
-  console.log('GET /api/events')
-  const events = await readEventsFromFile()
-  res.json(events)
 })
 
 app.get('/api/events/:id', async (req, res) => {
-  console.log('GET /api/events/:id', req.params.id)
-  const events = await readEventsFromFile()
-  const event = events.find((e) => e.id === req.params.id)
+  try {
+    const data = await fs.readFile(eventsFilePath, 'utf-8')
+    const events = JSON.parse(data)
+    const event = events.find((e) => e.id === req.params.id)
 
-  if (event) {
-    res.json(event)
-  } else {
-    res.status(404).send({ error: 'Event not found' })
+    if (event) {
+      res.json(event)
+    } else {
+      res.status(404).json({ error: 'Event not found' })
+    }
+  } catch (error) {
+    console.error('Error reading event:', error)
+    res.status(500).json({ error: 'Server error' })
   }
 })
 
 app.post('/api/events', upload.array('images'), async (req, res) => {
-  console.log('POST /api/events')
-  const { body, files } = req
-  const events = await readEventsFromFile()
+  try {
+    const data = await fs.readFile(eventsFilePath, 'utf-8')
+    const events = JSON.parse(data)
 
-  const newEvent = {
-    id: uuidv4(),
-    ...body,
-    images: (files || []).map((file) => `/uploads/${file.filename}`),
+    const newEvent = {
+      id: uuidv4(),
+      ...req.body,
+      images: (req.files || []).map((file) => `/uploads/${file.filename}`),
+    }
+
+    events.push(newEvent)
+    await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2))
+
+    res.status(201).json(newEvent)
+  } catch (error) {
+    console.error('Error creating event:', error)
+    res.status(500).json({ error: 'Server error' })
   }
-
-  events.push(newEvent)
-  await writeEventsToFile(events)
-  res.status(201).json(newEvent)
 })
 
-app.get('*', (req, res) => {
-  console.log('Serving frontend for:', req.path)
-
-  if (req.path.startsWith('/api/')) {
+app.use('*', (req, res) => {
+  if (req.originalUrl.startsWith('/api/')) {
     return res.status(404).json({ error: 'API endpoint not found' })
   }
 
@@ -99,10 +92,5 @@ app.get('*', (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`🚀 Mock API running on port ${PORT}`)
-  console.log(
-    `📁 Serving static files from: ${path.join(process.cwd(), 'dist')}`,
-  )
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
-  console.log(`📂 Current working directory: ${process.cwd()}`)
+  console.log(`Server running on port ${PORT}`)
 })
