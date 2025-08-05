@@ -9,7 +9,8 @@
     "noEmit": false,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": ["../node_modules/@types"]
   },
   "include": ["./**/*.ts"]
 }
