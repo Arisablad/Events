@@ -93,4 +93,5 @@ app.post('/api/events/create', upload.array('images'), async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Mock API running at http://localhost:${PORT}`)
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
 })
