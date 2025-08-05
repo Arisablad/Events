@@ -44,7 +44,7 @@
     "react-i18next": "^15.6.1",
     "react-redux": "^9.2.0",
     "tailwindcss": "^4.0.6",
-    "ts-pattern": "^4.0.1",
+    "ts-pattern": "^5.8.0",
     "uuid": "^11.1.0",
     "wretch": "^2.11.0",
     "yup": "^1.7.0"

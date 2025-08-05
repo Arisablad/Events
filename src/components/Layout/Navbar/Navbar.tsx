@@ -41,7 +41,7 @@ const Navbar = () => {
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          onPress={toggleMenu}
+          onClick={toggleMenu}
         />
       </NavbarContent>
 

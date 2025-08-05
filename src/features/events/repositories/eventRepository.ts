@@ -21,8 +21,9 @@ export const eventRepository = createApi({
         linkHelper({
           href: API_ROUTES.events.show,
           params: { id },
+          isApiRoute: true,
         }),
-      providesTags: (result, error, id) => [{ type: RTK_TAGS.EVENT, id }],
+      providesTags: (_, __, id) => [{ type: RTK_TAGS.EVENT, id }],
     }),
     storeEvent: builder.mutation<EventInterface, FormData>({
       query: (formData) => ({

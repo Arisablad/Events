@@ -1,4 +1,7 @@
 import {
+  EventFlexList,
+  EventGridList,
+  EventListSkeleton,
   EventTypeEnum,
   useFilteredEvents,
   useGetEventsQuery,
@@ -8,13 +11,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState, type ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
-import {
-  EventFlexList,
-  EventGridList,
-  EventHeader,
-  EventListSkeleton,
-  Filters,
-} from './-partials'
+import { EventHeader, Filters } from './-partials'
 
 export const Route = createFileRoute('/')({
   component: HomePage,

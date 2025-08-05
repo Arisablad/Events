@@ -1,4 +1,4 @@
-import type { EventInterface } from '@/features/events'
+import type { EventInterface } from '../../../types'
 
 type EventListProps = Readonly<{
   events: EventInterface[]
