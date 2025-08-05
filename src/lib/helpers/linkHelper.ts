@@ -1,35 +1,32 @@
 type LinkHelperProps = {
-  isApiRoute?: boolean
   href: string
   params?: Record<string, string>
   queryParams?: Record<string, string>
-  isExternal?: boolean
+  isApiRoute?: boolean
 }
 
 const linkHelper = ({
   href,
   params,
   queryParams,
-  isExternal,
-  isApiRoute,
-}: LinkHelperProps) => {
-  const url = isApiRoute
-    ? new URL(href, import.meta.env.VITE_API_URL)
-    : new URL(href)
+  isApiRoute = false,
+}: LinkHelperProps): string => {
+  let path = href
 
   if (params) {
-    Object.entries(params).forEach(([key, value]) => {
-      url.pathname = url.pathname.replace(`:${key}`, value)
-    })
+    for (const [key, value] of Object.entries(params)) {
+      path = path.replace(`:${key}`, value)
+    }
   }
 
-  if (queryParams) {
-    Object.entries(queryParams).forEach(([key, value]) => {
-      url.searchParams.append(key, value)
-    })
+  const search = new URLSearchParams(queryParams || {}).toString()
+  const finalPath = search ? `${path}?${search}` : path
+
+  if (isApiRoute) {
+    return `${import.meta.env.VITE_API_URL}${finalPath}`
   }
 
-  return isExternal ? url.toString() : url.pathname
+  return finalPath
 }
 
 export { linkHelper }

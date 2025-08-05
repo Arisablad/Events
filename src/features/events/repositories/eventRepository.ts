@@ -10,19 +10,24 @@ export const eventRepository = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: Object.values(RTK_TAGS),
+  refetchOnFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMountOrArgChange: false,
 
   endpoints: (builder) => ({
     getEvents: builder.query<EventInterface[], void>({
       query: () => API_ROUTES.events.index,
       providesTags: [{ type: RTK_TAGS.EVENT, id: 'LIST' }],
+      keepUnusedDataFor: 120,
     }),
     getEventById: builder.query<EventInterface, string>({
       query: (id) =>
         linkHelper({
           href: API_ROUTES.events.show,
           params: { id },
+          isApiRoute: true,
         }),
-      providesTags: (result, error, id) => [{ type: RTK_TAGS.EVENT, id }],
+      providesTags: (_, __, id) => [{ type: RTK_TAGS.EVENT, id }],
     }),
     storeEvent: builder.mutation<EventInterface, FormData>({
       query: (formData) => ({

@@ -16,8 +16,8 @@ import { Logo } from './partials'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const routerState = useRouterState()
   const { t } = useTranslation('common')
+  const routerState = useRouterState()
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
@@ -41,7 +41,7 @@ const Navbar = () => {
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          onPress={toggleMenu}
+          onClick={toggleMenu}
         />
       </NavbarContent>
 

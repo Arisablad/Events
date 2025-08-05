@@ -9,6 +9,9 @@ const EventGridList = ({ events, onEventClick }: EventListProps) => {
           key={event.id}
           event={event}
           onEventClick={onEventClick}
+          classNames={{
+            container: 'cursor-pointer',
+          }}
         />
       ))}
     </div>

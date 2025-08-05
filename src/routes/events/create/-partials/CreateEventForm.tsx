@@ -61,6 +61,13 @@ const CreateEventForm = () => {
     try {
       await storeEvent(formData).unwrap()
 
+      navigate({
+        from: '/events/create',
+        to: '/',
+        replace: true,
+        reloadDocument: true,
+      })
+
       addToast({
         title: t('events:messages.event_created'),
         variant: 'solid',
@@ -68,9 +75,6 @@ const CreateEventForm = () => {
       })
 
       handleClear()
-      navigate({
-        to: '/',
-      })
     } catch (error) {
       addToast({
         title: t('events:messages.event_creation_failed'),
@@ -82,8 +86,6 @@ const CreateEventForm = () => {
       // AND SHOW PROPER MESSAGE, BUT FOR NOW I JUST SHOW GENERIC ERROR
     }
   }
-
-  console.log('Form Errors:', errors)
 
   return (
     <Card shadow="sm" className="max-w-xl mx-auto">
