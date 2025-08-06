@@ -23,6 +23,8 @@
 ## LIVE DEMO 
 https://events-1-zyrz.onrender.com/
 
+Jeśli Demo nie działa proszę o kontakt telefoniczne (limity na darmowym planie)
+
 
 ## Projekt 🚀
 Projekt składa się z dwóch głównych komponentów:
