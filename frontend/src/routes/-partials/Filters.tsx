@@ -30,10 +30,10 @@ const Filters = ({
   return (
     <Card
       className={
-        'flex flex-row items-center sm:gap-2 md:gap-4 lg:gap-6 py-2 px-6'
+        'flex flex-col items-center sm:flex-row gap-4 sm:gap-2 md:gap-4 lg:gap-6 py-2 px-6'
       }
     >
-      <div className={'flex-1 flex items-center gap-4'}>
+      <div className={'flex-1 flex flex-col sm:flex-row items-center gap-4'}>
         <Input
           placeholder={t('list.filters.search_placeholder')}
           startContent={<IconSearch className={'text-content4-foreground'} />}
