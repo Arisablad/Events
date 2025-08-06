@@ -16,7 +16,7 @@ const app = express()
 const PORT = process.env.PORT || 4000
 
 // File path for storing events
-const eventsFilePath = path.resolve(process.cwd(), 'mock', 'events.json')
+const eventsFilePath = path.resolve(process.cwd(), 'mock', '../events.json')
 
 app.use(cors())
 app.use(express.json())
