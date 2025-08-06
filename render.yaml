@@ -4,7 +4,7 @@ services:
     name: events-api
     env: node
     plan: free
-    buildCommand: npm install && npm run build:server
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -12,6 +12,7 @@ services:
       - key: PORT
         value: 4000
     autoDeploy: false
+    rootDir: mock
 
   # Frontend Static Site
   - type: web
@@ -20,6 +21,7 @@ services:
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
+    rootDir: frontend
     routes:
       - type: rewrite
         source: /*

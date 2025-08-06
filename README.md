@@ -1,4 +1,4 @@
-Zadanie Rekrutacyjne Alan Systems
+# Zadanie Rekrutacyjne Alan Systems
 
 # Notes
 
@@ -18,3 +18,65 @@ Zadanie Rekrutacyjne Alan Systems
 - Filtry powinny być po backendzie bazując na searchParamsach /paginacja/search/sort/filter by type etc. Jednak miałem stworzyć tylko mocki.
 - Z racji braku requestów do API, nie stosowałem debounce na inputach(search).
 - Na realnym kodzie z pewnością ustawiłbym jakiś cache w tanstack query.
+
+
+## LIVE DEMO 
+https://events-1-zyrz.onrender.com/
+
+
+## Projekt 🚀
+Projekt składa się z dwóch głównych komponentów:
+
+frontend – aplikacja frontendowa
+mock – serwer mockujący backend
+
+🛠️ Wymagania
+
+Node.js (zalecana wersja: v22.14.0)
+NPM
+
+🔧 Instalacja i uruchomienie
+Aby uruchomić projekt, otwórz dwa terminale i wykonaj poniższe kroki:
+# Terminal 1 - Serwer Mock
+### Przejdź do folderu mock
+cd mock
+
+### Skopiuj plik środowiskowy
+mv .env.example .env
+
+### ✏️ Uzupełnij plik .env odpowiednimi wartościami
+
+### Zainstaluj zależności
+npm install
+
+### Zbuduj projekt
+npm run build
+
+### Uruchom serwer
+npm run start
+
+
+# Terminal 2 - Frontend
+
+cd frontend
+
+### Skopiuj plik środowiskowy
+mv .env.example .env
+
+### ✏️ Uzupełnij plik .env (jeśli wymagane)
+
+### Uruchom środowisko deweloperskie
+npm run dev
+
+## 📝 Uwagi
+
+Upewnij się, że oba serwery są uruchomione jednocześnie
+Serwer mock musi być uruchomiony przed frontendem
+Sprawdź czy porty nie kolidują z innymi aplikacjami
+
+## 🆘 Problemy?
+W przypadku problemów sprawdź:
+
+#### - Czy masz zainstalowaną właściwą wersję Node.js?
+#### - Czy pliki .env są poprawnie skonfigurowane?
+#### - Czy porty są wolne?

@@ -80,7 +80,7 @@ function HomePage() {
 
       {filteredEvents.length === 0 && (
         <div className="text-center text-gray-500">
-          {t('events.list.no_events')}
+          {t('events:list.no_events_found')}
         </div>
       )}
     </div>
