@@ -5,8 +5,11 @@ import { defineConfig } from 'vite'
 import tanstackRouter from '@tanstack/router-plugin/vite'
 import { resolve } from 'node:path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    globals: true,
+  },
   plugins: [
     tanstackRouter({
       autoCodeSplitting: true,

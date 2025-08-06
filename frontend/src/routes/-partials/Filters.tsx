@@ -41,6 +41,7 @@ const Filters = ({
           size={'sm'}
           variant={'underlined'}
           onValueChange={onSearch}
+          data-testid="search-input"
         />
         <Select
           placeholder={t('form:placeholders.event_type')}
@@ -48,6 +49,7 @@ const Filters = ({
           isRequired
           onChange={onTypeChange}
           selectedKeys={selectedType ? [selectedType] : ['all']}
+          size={'sm'}
         >
           <SelectItem key="all" textValue={t('common:event_types.all_types')}>
             {t('common:event_types.all_types')}
@@ -70,6 +72,7 @@ const Filters = ({
             size={'sm'}
             className={'border-small border-primary/20'}
             onPress={() => onViewChange('flex')}
+            data-testid="flex-view-button"
           >
             <IconLayoutRows size={16} />
           </Button>
@@ -82,6 +85,7 @@ const Filters = ({
             size={'sm'}
             className={'border-small border-primary/20'}
             onPress={() => onViewChange('grid')}
+            data-testid="grid-view-button"
           >
             <IconLayoutColumns size={16} />
           </Button>
