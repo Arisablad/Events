@@ -6,8 +6,6 @@ import type { EventInterface } from '../types'
 
 const baseUrl = import.meta.env.VITE_API_URL
 
-console.log('API Base URL:', baseUrl)
-
 export const eventRepository = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
